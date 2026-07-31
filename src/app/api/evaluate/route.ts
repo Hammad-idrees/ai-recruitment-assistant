@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createRecruitingAgent } from "@/lib/agent";
 import { getSavedRecordId, getFinalReplyText } from "@/lib/agent/extract-tool-result";
-import { getSupabaseServerClient } from "@/lib/supabase/server";
+import { getEvaluationDetail } from "@/lib/data/evaluations";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -84,28 +84,27 @@ ${jobDescriptionText}
 
   // The agent's tool calls are the source of structured truth; read the
   // persisted row back rather than parsing the agent's prose reply.
-  const supabase = getSupabaseServerClient();
-  const { data, error } = await supabase
-    .from("evaluations")
-    .select("*, candidates(name), job_descriptions(title)")
-    .eq("id", evaluationId)
-    .single();
-
-  if (error || !data) {
+  let detail;
+  try {
+    detail = await getEvaluationDetail(evaluationId);
+  } catch (err) {
     return NextResponse.json(
-      { error: `Saved but failed to read back: ${error?.message ?? "not found"}` },
+      { error: `Saved but failed to read back: ${err instanceof Error ? err.message : "unknown error"}` },
       { status: 500 }
     );
   }
+  if (!detail) {
+    return NextResponse.json({ error: "Saved but the evaluation was not found." }, { status: 500 });
+  }
 
   return NextResponse.json({
-    evaluationId: data.id,
-    candidateName: data.candidates?.name,
-    jobTitle: data.job_descriptions?.title,
-    matchScore: data.match_score,
-    scoreRationale: data.score_rationale,
-    missingSkills: data.missing_skills,
-    interviewQuestions: data.interview_questions,
+    evaluationId: detail.id,
+    candidateName: detail.candidateName,
+    jobTitle: detail.jobTitle,
+    matchScore: detail.matchScore,
+    scoreRationale: detail.scoreRationale,
+    missingSkills: detail.missingSkills,
+    interviewQuestions: detail.interviewQuestions,
     agentSummary: getFinalReplyText(result.messages),
   });
 }
