@@ -1,4 +1,5 @@
-import "server-only";
+// Server-only: uses SUPABASE_SERVICE_ROLE_KEY (no NEXT_PUBLIC_ prefix, so it's
+// undefined in any client bundle). Never import this from a "use client" file.
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "./types";
 
