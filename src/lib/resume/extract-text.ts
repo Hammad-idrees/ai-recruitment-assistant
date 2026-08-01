@@ -1,19 +1,18 @@
-import { PDFParse } from "pdf-parse";
+import { extractText, getDocumentProxy } from "unpdf";
 import mammoth from "mammoth";
 
 export async function extractResumeText(buffer: Buffer, filename: string): Promise<string> {
   const ext = filename.split(".").pop()?.toLowerCase();
 
   if (ext === "pdf") {
-    const parser = new PDFParse({ data: buffer });
-    try {
-      const result = await parser.getText();
-      // pdf-parse inserts "-- N of M --" page-break markers between pages;
-      // strip them so they don't feed into the agent as resume content.
-      return result.text.replace(/--\s*\d+\s*of\s*\d+\s*--/g, "").trim();
-    } finally {
-      await parser.destroy();
-    }
+    // unpdf ships its own serverless-safe PDF.js build with no separate
+    // worker file to resolve — pdf-parse's pdfjs-dist worker file isn't
+    // reliably included in Vercel's function bundle (confirmed broken in
+    // production: 500s despite working locally), so this avoids that class
+    // of failure entirely instead of patching around it.
+    const pdf = await getDocumentProxy(new Uint8Array(buffer));
+    const { text } = await extractText(pdf, { mergePages: true });
+    return text.trim();
   }
 
   if (ext === "docx") {
