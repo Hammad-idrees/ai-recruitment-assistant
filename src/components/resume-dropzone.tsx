@@ -57,7 +57,8 @@ export function ResumeDropzone({ file, onChange, disabled }: ResumeDropzoneProps
   }
 
   return (
-    <div
+    <label
+      htmlFor="resume-file-input"
       onDragOver={(e) => {
         e.preventDefault();
         if (!disabled) setIsDragOver(true);
@@ -68,11 +69,10 @@ export function ResumeDropzone({ file, onChange, disabled }: ResumeDropzoneProps
         setIsDragOver(false);
         if (!disabled) handleFiles(e.dataTransfer.files);
       }}
-      onClick={() => !disabled && inputRef.current?.click()}
       className={cn(
-        "flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border py-10 text-center transition-colors",
-        isDragOver ? "border-foreground/40 bg-secondary/60" : "border-border hover:bg-secondary/40",
-        disabled && "pointer-events-none opacity-50"
+        "flex flex-col items-center justify-center gap-2 rounded-lg border py-10 text-center transition-colors",
+        disabled ? "pointer-events-none opacity-50" : "cursor-pointer",
+        isDragOver ? "border-foreground/40 bg-secondary/60" : "border-border hover:bg-secondary/40"
       )}
     >
       <span className="flex size-9 items-center justify-center rounded-md bg-secondary">
@@ -83,13 +83,14 @@ export function ResumeDropzone({ file, onChange, disabled }: ResumeDropzoneProps
       </p>
       <p className="text-xs text-muted-foreground">PDF, DOCX, or TXT · up to 5MB</p>
       <input
+        id="resume-file-input"
         ref={inputRef}
         type="file"
         accept=".pdf,.docx,.txt"
-        className="hidden"
+        className="sr-only"
         disabled={disabled}
         onChange={(e) => handleFiles(e.target.files)}
       />
-    </div>
+    </label>
   );
 }

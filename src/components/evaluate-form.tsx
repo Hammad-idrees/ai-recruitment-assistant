@@ -82,7 +82,7 @@ export function EvaluateForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="space-y-2">
-        <Label>Resume</Label>
+        <Label htmlFor="resume-file-input">Resume</Label>
         <ResumeDropzone file={file} onChange={setFile} disabled={isSubmitting} />
       </div>
 
