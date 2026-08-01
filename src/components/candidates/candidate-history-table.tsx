@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ScoreBadge } from "@/components/score-badge";
+import { ScoreBadge } from "@/components/candidates/score-badge";
 import type { CandidateHistoryItem } from "@/lib/data/candidates";
 
 function formatDate(iso: string) {
@@ -14,7 +14,7 @@ function formatDate(iso: string) {
 export function CandidateHistoryTable({ items }: { items: CandidateHistoryItem[] }) {
   if (items.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-border py-20 text-center">
+      <div className="rounded-xl border border-dashed border-white/15 py-20 text-center">
         <p className="text-sm font-medium">No evaluations yet</p>
         <p className="mt-1 text-xs text-muted-foreground">
           Run your first evaluation to see it appear here.
@@ -24,10 +24,10 @@ export function CandidateHistoryTable({ items }: { items: CandidateHistoryItem[]
   }
 
   return (
-    <div className="overflow-hidden rounded-lg bg-card shadow-sm border border-border/40">
+    <div className="overflow-hidden rounded-xl">
       <Table>
         <TableHeader>
-          <TableRow className="hover:bg-transparent">
+          <TableRow className="border-white/10 hover:bg-transparent">
             <TableHead>Candidate</TableHead>
             <TableHead>Role</TableHead>
             <TableHead>Score</TableHead>
@@ -36,11 +36,14 @@ export function CandidateHistoryTable({ items }: { items: CandidateHistoryItem[]
         </TableHeader>
         <TableBody>
           {items.map((item) => (
-            <TableRow key={item.evaluationId} className="group transition-colors hover:bg-muted/50 cursor-pointer">
+            <TableRow
+              key={item.evaluationId}
+              className="group border-white/5 transition-colors hover:bg-white/4"
+            >
               <TableCell className="font-medium">
                 <Link
                   href={`/candidates/${item.evaluationId}`}
-                  className="inline-flex items-center gap-1.5 underline-offset-4 group-hover:text-primary transition-colors"
+                  className="inline-flex items-center gap-1.5 underline-offset-4 group-hover:underline"
                 >
                   {item.candidateName}
                 </Link>

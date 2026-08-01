@@ -30,9 +30,9 @@ export function ResumeDropzone({ file, onChange, disabled }: ResumeDropzoneProps
 
   if (file) {
     return (
-      <div className="flex items-center justify-between rounded-lg border border-border bg-card px-4 py-3">
+      <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/3 px-4 py-3 backdrop-blur-xl">
         <div className="flex min-w-0 items-center gap-3">
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary">
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white/5">
             <FileText className="size-4 text-muted-foreground" />
           </span>
           <div className="min-w-0">
@@ -46,7 +46,7 @@ export function ResumeDropzone({ file, onChange, disabled }: ResumeDropzoneProps
           <button
             type="button"
             onClick={() => onChange(null)}
-            className="flex size-7 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            className="flex size-7 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/10 hover:text-foreground"
             aria-label="Remove file"
           >
             <X className="size-4" />
@@ -70,12 +70,14 @@ export function ResumeDropzone({ file, onChange, disabled }: ResumeDropzoneProps
         if (!disabled) handleFiles(e.dataTransfer.files);
       }}
       className={cn(
-        "flex flex-col items-center justify-center gap-2 rounded-lg border py-10 text-center transition-colors",
+        "flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed py-10 text-center backdrop-blur-xl transition-colors",
         disabled ? "pointer-events-none opacity-50" : "cursor-pointer",
-        isDragOver ? "border-foreground/40 bg-secondary/60" : "border-border hover:bg-secondary/40"
+        isDragOver
+          ? "border-glow-amber/50 bg-glow-amber/6"
+          : "border-white/15 bg-white/2 hover:border-white/25 hover:bg-white/4"
       )}
     >
-      <span className="flex size-9 items-center justify-center rounded-md bg-secondary">
+      <span className="flex size-9 items-center justify-center rounded-lg bg-white/5">
         <Upload className="size-4 text-muted-foreground" />
       </span>
       <p className="text-sm font-medium">

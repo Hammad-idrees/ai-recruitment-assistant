@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ResumeDropzone } from "@/components/resume-dropzone";
+import { ResumeDropzone } from "@/components/evaluate/resume-dropzone";
 
 const STEPS = [
   "Parsing resume",
@@ -62,7 +62,7 @@ export function EvaluateForm() {
 
   if (isSubmitting) {
     return (
-      <div className="flex flex-col items-center gap-6 rounded-xl border border-border bg-card px-8 py-16 text-center">
+      <div className="flex flex-col items-center gap-6 rounded-2xl border border-white/10 bg-white/3 px-8 py-16 text-center backdrop-blur-xl">
         <Loader2 className="size-6 animate-spin text-muted-foreground" />
         <div className="space-y-1.5">
           <p className="text-sm font-medium">Running the evaluation</p>
@@ -94,7 +94,7 @@ export function EvaluateForm() {
           value={jobTitle}
           onChange={(e) => setJobTitle(e.target.value)}
           disabled={isSubmitting}
-          className="bg-background/50 backdrop-blur-sm focus-visible:ring-primary/50 transition-shadow"
+          className="bg-white/5 border-white/10 focus-visible:ring-glow-amber/40 focus-visible:border-glow-amber/40"
         />
       </div>
 
@@ -103,17 +103,17 @@ export function EvaluateForm() {
         <Textarea
           id="job-description"
           placeholder="Paste the full job description, including required and nice-to-have skills..."
-          className="min-h-40 resize-y focus-visible:ring-primary/50 transition-shadow bg-background/50 backdrop-blur-sm"
+          className="min-h-40 resize-y bg-white/5 border-white/10 focus-visible:ring-glow-amber/40 focus-visible:border-glow-amber/40"
           value={jobDescription}
           onChange={(e) => setJobDescription(e.target.value)}
           disabled={isSubmitting}
         />
       </div>
 
-      <Button 
-        type="submit" 
-        size="lg" 
-        className="w-full gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg" 
+      <Button
+        type="submit"
+        size="lg"
+        className="w-full gap-2 transition-all hover:scale-[1.01] active:scale-[0.99]"
         disabled={!canSubmit}
       >
         <Sparkles className="size-4" />
