@@ -9,7 +9,15 @@ const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024;
 const ALLOWED_EXTENSIONS = ["pdf", "docx", "txt"];
 
 export async function POST(request: Request) {
-  const formData = await request.formData();
+  let formData: FormData;
+  try {
+    formData = await request.formData();
+  } catch {
+    return NextResponse.json(
+      { error: "Request must be multipart/form-data with a file field." },
+      { status: 400 }
+    );
+  }
   const file = formData.get("file");
 
   if (!(file instanceof File)) {
