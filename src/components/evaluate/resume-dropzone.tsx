@@ -30,14 +30,14 @@ export function ResumeDropzone({ file, onChange, disabled }: ResumeDropzoneProps
 
   if (file) {
     return (
-      <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/3 px-4 py-3 backdrop-blur-xl">
-        <div className="flex min-w-0 items-center gap-3">
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white/5">
-            <FileText className="size-4 text-muted-foreground" />
+      <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/3 px-5 py-4 backdrop-blur-xl">
+        <div className="flex min-w-0 items-center gap-4">
+          <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-white/5">
+            <FileText className="size-5 text-muted-foreground" />
           </span>
           <div className="min-w-0">
-            <p className="truncate text-sm font-medium">{file.name}</p>
-            <p className="text-xs text-muted-foreground">
+            <p className="truncate text-base font-semibold text-white">{file.name}</p>
+            <p className="text-sm text-white/60">
               {(file.size / 1024).toFixed(0)} KB
             </p>
           </div>
@@ -46,10 +46,10 @@ export function ResumeDropzone({ file, onChange, disabled }: ResumeDropzoneProps
           <button
             type="button"
             onClick={() => onChange(null)}
-            className="flex size-7 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-white/10 hover:text-foreground"
+            className="flex size-9 shrink-0 items-center justify-center rounded-xl text-white/60 transition-colors hover:bg-white/10 hover:text-white"
             aria-label="Remove file"
           >
-            <X className="size-4" />
+            <X className="size-5" />
           </button>
         )}
       </div>
@@ -70,20 +70,20 @@ export function ResumeDropzone({ file, onChange, disabled }: ResumeDropzoneProps
         if (!disabled) handleFiles(e.dataTransfer.files);
       }}
       className={cn(
-        "flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed py-10 text-center backdrop-blur-xl transition-colors",
+        "flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed py-16 text-center backdrop-blur-xl transition-colors",
         disabled ? "pointer-events-none opacity-50" : "cursor-pointer",
         isDragOver
           ? "border-glow-amber/50 bg-glow-amber/6"
           : "border-white/15 bg-white/2 hover:border-white/25 hover:bg-white/4"
       )}
     >
-      <span className="flex size-9 items-center justify-center rounded-lg bg-white/5">
-        <Upload className="size-4 text-muted-foreground" />
+      <span className="flex size-14 items-center justify-center rounded-2xl bg-white/5">
+        <Upload className="size-6 text-muted-foreground" />
       </span>
-      <p className="text-sm font-medium">
-        Drop a resume, or <span className="underline underline-offset-2">browse</span>
+      <p className="text-base font-semibold text-white">
+        Drop a resume, or <span className="underline underline-offset-2 text-glow-amber">browse</span>
       </p>
-      <p className="text-xs text-muted-foreground">PDF, DOCX, or TXT · up to 5MB</p>
+      <p className="text-sm text-white/50">PDF, DOCX, or TXT · up to 5MB</p>
       <input
         id="resume-file-input"
         ref={inputRef}

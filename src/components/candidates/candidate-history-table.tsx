@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ScoreBadge } from "@/components/candidates/score-badge";
 import type { CandidateHistoryItem } from "@/lib/data/candidates";
+import { ArrowRight } from "lucide-react";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString(undefined, {
@@ -14,9 +15,12 @@ function formatDate(iso: string) {
 export function CandidateHistoryTable({ items }: { items: CandidateHistoryItem[] }) {
   if (items.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-white/15 py-20 text-center">
-        <p className="text-sm font-medium">No evaluations yet</p>
-        <p className="mt-1 text-xs text-muted-foreground">
+      <div className="rounded-2xl border border-dashed border-white/15 bg-white/[0.02] py-24 text-center backdrop-blur-xl">
+        <div className="mb-4 inline-flex size-16 items-center justify-center rounded-full bg-white/5">
+          <ArrowRight className="size-6 text-white/30" />
+        </div>
+        <p className="text-base font-semibold text-white">No evaluations yet</p>
+        <p className="mt-2 text-sm text-white/50">
           Run your first evaluation to see it appear here.
         </p>
       </div>
@@ -24,35 +28,36 @@ export function CandidateHistoryTable({ items }: { items: CandidateHistoryItem[]
   }
 
   return (
-    <div className="overflow-hidden rounded-xl">
+    <div className="overflow-hidden rounded-2xl">
       <Table>
         <TableHeader>
           <TableRow className="border-white/10 hover:bg-transparent">
-            <TableHead>Candidate</TableHead>
-            <TableHead>Role</TableHead>
-            <TableHead>Score</TableHead>
-            <TableHead className="text-right">Date</TableHead>
+            <TableHead className="text-sm font-semibold text-white/70">Candidate</TableHead>
+            <TableHead className="text-sm font-semibold text-white/70">Role</TableHead>
+            <TableHead className="text-sm font-semibold text-white/70">Score</TableHead>
+            <TableHead className="text-right text-sm font-semibold text-white/70">Date</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {items.map((item) => (
             <TableRow
               key={item.evaluationId}
-              className="group border-white/5 transition-colors hover:bg-white/4"
+              className="group border-white/5 transition-all duration-300 hover:bg-white/5 hover:shadow-[0_0_30px_-12px_rgba(251,191,36,0.1)]"
             >
               <TableCell className="font-medium">
                 <Link
                   href={`/candidates/${item.evaluationId}`}
-                  className="inline-flex items-center gap-1.5 underline-offset-4 group-hover:underline"
+                  className="inline-flex items-center gap-2 text-white hover:text-glow-amber transition-colors duration-300"
                 >
                   {item.candidateName}
+                  <ArrowRight className="size-3.5 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0" />
                 </Link>
               </TableCell>
-              <TableCell className="text-muted-foreground">{item.jobTitle}</TableCell>
+              <TableCell className="text-white/60 group-hover:text-white/80 transition-colors duration-300">{item.jobTitle}</TableCell>
               <TableCell>
                 <ScoreBadge score={item.matchScore} />
               </TableCell>
-              <TableCell className="text-right text-muted-foreground">
+              <TableCell className="text-right text-white/60 group-hover:text-white/80 transition-colors duration-300">
                 {formatDate(item.createdAt)}
               </TableCell>
             </TableRow>
