@@ -41,7 +41,7 @@ export function EvaluateForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const jdLength = jobDescription.trim().length;
-  const jdValid = jdLength >= MIN_JD_LENGTH;
+  const jdValid = jdLength > 0;
   const titleValid = jobTitle.trim().length > 0;
   const canSubmit = !!file && titleValid && jdValid && !isSubmitting;
 
@@ -131,20 +131,10 @@ export function EvaluateForm() {
       </div>
 
       <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <Label htmlFor="job-description" className="flex items-center gap-2 text-sm font-semibold text-white">
-            <FieldNumber n={3} done={jdValid} />
-            Job description
-          </Label>
-          <span
-            className={cn(
-              "text-sm tabular-nums font-medium",
-              jdValid ? "text-status-good" : "text-muted-foreground"
-            )}
-          >
-            {jdLength}/{MIN_JD_LENGTH}
-          </span>
-        </div>
+        <Label htmlFor="job-description" className="flex items-center gap-2 text-sm font-semibold text-white">
+          <FieldNumber n={3} done={jdValid} />
+          Job description
+        </Label>
         <Textarea
           id="job-description"
           placeholder="Paste the full job description, including required and nice-to-have skills..."

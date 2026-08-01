@@ -38,8 +38,16 @@ export function computeAtsScore(input: AtsScoreInput): { score: number; breakdow
       ? NICE_TO_HAVE_WEIGHT
       : (input.matchedNiceToHaveCount / input.totalNiceToHaveCount) * NICE_TO_HAVE_WEIGHT;
 
+  // sqrt curve, not linear: a candidate at half the required years should
+  // lose less than half the experience points. Linear was excessively harsh
+  // for juniors with strong project work but a short formal internship
+  // (e.g. 0.25/2 years scored 3/20 instead of a fairer 7/20) — this only
+  // affects under-qualified candidates, since sqrt(x) >= x for x in [0,1]
+  // while still clamping to 1 (full credit) once years meet the requirement.
   const experienceRatio =
-    input.minYearsExperience <= 0 ? 1 : Math.min(input.yearsOfExperience / input.minYearsExperience, 1);
+    input.minYearsExperience <= 0
+      ? 1
+      : Math.min(Math.sqrt(input.yearsOfExperience / input.minYearsExperience), 1);
   const experienceScore = experienceRatio * EXPERIENCE_WEIGHT;
 
   const rawTotal = requiredSkillsScore + niceToHaveScore + experienceScore;

@@ -65,17 +65,27 @@ export default async function CandidateDetailPage({
           </div>
         </div>
 
-        <div className="mb-8 grid gap-6 sm:grid-cols-2">
+        <div className="mb-8 space-y-6">
           <div className="rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/[0.02] p-1 backdrop-blur-2xl shadow-[0_20px_60px_-20px_rgba(0,0,0,0.5)]">
-            <div className="rounded-2xl bg-black/20 p-6">
-              <h2 className="mb-4 text-lg font-semibold text-white">Skills gap</h2>
+            <div className="rounded-2xl bg-black/20 p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-glow-amber/20 to-glow-blue/20">
+                  <span className="text-lg">⚠️</span>
+                </div>
+                <h2 className="text-xl font-bold text-white">Skills gap analysis</h2>
+              </div>
               <MissingSkillsCard skills={evaluation.missingSkills} />
             </div>
           </div>
 
           <div className="rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/[0.02] p-1 backdrop-blur-2xl shadow-[0_20px_60px_-20px_rgba(0,0,0,0.5)]">
-            <div className="rounded-2xl bg-black/20 p-6">
-              <h2 className="mb-4 text-lg font-semibold text-white">Interview questions</h2>
+            <div className="rounded-2xl bg-black/20 p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="flex size-10 items-center justify-center rounded-xl bg-gradient-to-br from-glow-amber/20 to-glow-blue/20">
+                  <span className="text-lg">💡</span>
+                </div>
+                <h2 className="text-xl font-bold text-white">Interview questions</h2>
+              </div>
               <InterviewQuestionsList questions={evaluation.interviewQuestions} />
             </div>
           </div>
