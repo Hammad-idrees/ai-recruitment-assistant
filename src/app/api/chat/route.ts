@@ -4,7 +4,8 @@ import { getFinalReplyText } from "@/lib/agent/extract-tool-result";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
-export const maxDuration = 120;
+// See /api/evaluate for why this is 280, not the old 120s.
+export const maxDuration = 280;
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

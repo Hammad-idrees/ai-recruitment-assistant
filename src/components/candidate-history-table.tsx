@@ -24,7 +24,7 @@ export function CandidateHistoryTable({ items }: { items: CandidateHistoryItem[]
   }
 
   return (
-    <div className="overflow-hidden rounded-lg border border-border">
+    <div className="overflow-hidden rounded-lg bg-card shadow-sm border border-border/40">
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent">
@@ -36,11 +36,11 @@ export function CandidateHistoryTable({ items }: { items: CandidateHistoryItem[]
         </TableHeader>
         <TableBody>
           {items.map((item) => (
-            <TableRow key={item.evaluationId} className="group">
+            <TableRow key={item.evaluationId} className="group transition-colors hover:bg-muted/50 cursor-pointer">
               <TableCell className="font-medium">
                 <Link
                   href={`/candidates/${item.evaluationId}`}
-                  className="underline-offset-4 group-hover:underline"
+                  className="inline-flex items-center gap-1.5 underline-offset-4 group-hover:text-primary transition-colors"
                 >
                   {item.candidateName}
                 </Link>

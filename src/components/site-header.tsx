@@ -15,18 +15,18 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur-sm">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="flex size-6 items-center justify-center rounded-[6px] bg-foreground text-background">
-            <UserSearch className="size-3.5" strokeWidth={2.25} />
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/50 backdrop-blur-xl supports-[backdrop-filter]:bg-background/40 shadow-sm transition-all duration-300">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <Link href="/" className="group flex items-center gap-3 transition-transform hover:scale-105">
+          <span className="flex size-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-chart-1 text-primary-foreground shadow-md ring-1 ring-primary/20">
+            <UserSearch className="size-4 transition-transform group-hover:scale-110" strokeWidth={2.5} />
           </span>
-          <span className="text-[13px] font-medium tracking-tight">
-            Recruiting Assistant
+          <span className="text-base font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
+            Zikra AI Recruiter
           </span>
         </Link>
 
-        <nav className="flex items-center gap-1">
+        <nav className="flex items-center gap-2">
           {NAV_ITEMS.map((item) => {
             const active =
               item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
@@ -35,17 +35,17 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "rounded-md px-3 py-1.5 text-[13px] font-medium transition-colors",
+                  "relative rounded-full px-4 py-2 text-sm font-semibold transition-all duration-300",
                   active
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-foreground text-background shadow-md"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 )}
               >
                 {item.label}
               </Link>
             );
           })}
-          <div className="ml-1 pl-2 border-l border-border/70">
+          <div className="ml-2 pl-4 border-l border-border/70 flex items-center">
             <ThemeToggle />
           </div>
         </nav>

@@ -4,7 +4,10 @@ import { getSavedRecordId, getFinalReplyText } from "@/lib/agent/extract-tool-re
 import { getEvaluationDetail } from "@/lib/data/evaluations";
 
 export const runtime = "nodejs";
-export const maxDuration = 120;
+// Hobby plan (with Fluid Compute, default-on) allows up to 300s. Worst-case
+// pipeline time under quota throttling (~12 calls x 13s spacing + generation
+// latency) can approach 200s, so stay well clear of the old 120s cap.
+export const maxDuration = 280;
 
 interface EvaluateRequestBody {
   resumeText?: unknown;

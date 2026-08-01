@@ -94,6 +94,7 @@ export function EvaluateForm() {
           value={jobTitle}
           onChange={(e) => setJobTitle(e.target.value)}
           disabled={isSubmitting}
+          className="bg-background/50 backdrop-blur-sm focus-visible:ring-primary/50 transition-shadow"
         />
       </div>
 
@@ -102,14 +103,19 @@ export function EvaluateForm() {
         <Textarea
           id="job-description"
           placeholder="Paste the full job description, including required and nice-to-have skills..."
-          className="min-h-40 resize-y"
+          className="min-h-40 resize-y focus-visible:ring-primary/50 transition-shadow bg-background/50 backdrop-blur-sm"
           value={jobDescription}
           onChange={(e) => setJobDescription(e.target.value)}
           disabled={isSubmitting}
         />
       </div>
 
-      <Button type="submit" size="lg" className="w-full gap-2" disabled={!canSubmit}>
+      <Button 
+        type="submit" 
+        size="lg" 
+        className="w-full gap-2 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg" 
+        disabled={!canSubmit}
+      >
         <Sparkles className="size-4" />
         Run evaluation
       </Button>
