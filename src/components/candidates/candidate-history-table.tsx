@@ -2,7 +2,9 @@ import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ScoreBadge } from "@/components/candidates/score-badge";
 import type { CandidateHistoryItem } from "@/lib/data/candidates";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { deleteEvaluationAction } from "@/app/actions/evaluations";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString(undefined, {
@@ -10,6 +12,22 @@ function formatDate(iso: string) {
     day: "numeric",
     year: "numeric",
   });
+}
+
+function DeleteButton({ id }: { id: string }) {
+  return (
+    <form action={deleteEvaluationAction}>
+      <input type="hidden" name="id" value={id} />
+      <Button
+        type="submit"
+        variant="ghost"
+        size="sm"
+        className="text-white/50 hover:text-red-400 hover:bg-red-400/10 transition-colors"
+      >
+        <Trash2 className="size-4" />
+      </Button>
+    </form>
+  );
 }
 
 export function CandidateHistoryTable({ items }: { items: CandidateHistoryItem[] }) {
@@ -35,7 +53,8 @@ export function CandidateHistoryTable({ items }: { items: CandidateHistoryItem[]
             <TableHead className="text-sm font-semibold text-white/70">Candidate</TableHead>
             <TableHead className="text-sm font-semibold text-white/70">Role</TableHead>
             <TableHead className="text-sm font-semibold text-white/70">Score</TableHead>
-            <TableHead className="text-right text-sm font-semibold text-white/70">Date</TableHead>
+            <TableHead className="text-sm font-semibold text-white/70">Date</TableHead>
+            <TableHead className="text-right text-sm font-semibold text-white/70">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -57,8 +76,11 @@ export function CandidateHistoryTable({ items }: { items: CandidateHistoryItem[]
               <TableCell>
                 <ScoreBadge score={item.matchScore} />
               </TableCell>
-              <TableCell className="text-right text-white/60 group-hover:text-white/80 transition-colors duration-300">
+              <TableCell className="text-white/60 group-hover:text-white/80 transition-colors duration-300">
                 {formatDate(item.createdAt)}
+              </TableCell>
+              <TableCell className="text-right">
+                <DeleteButton id={item.evaluationId} />
               </TableCell>
             </TableRow>
           ))}

@@ -49,3 +49,9 @@ export async function getEvaluationDetail(id: string): Promise<EvaluationDetail 
     createdAt: row.created_at,
   };
 }
+
+export async function deleteEvaluation(id: string): Promise<void> {
+  const supabase = getSupabaseServerClient();
+  const { error } = await supabase.from("evaluations").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+}
