@@ -1,6 +1,6 @@
-# Zikra AI Recruiter (Deep Agent Harness)
+# AI Recruiter (Deep Agent Harness)
 
-A small but complete AI agent harness built as a technical challenge for Zikra Infotech LLC. 
+A small but complete AI agent harness built as a technical challenge.
 This custom AI agent streamlines the recruiting workflow by evaluating candidates against job descriptions using reasoning, deterministic scoring, and structured outputs.
 
 ## 🚀 Features
